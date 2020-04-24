@@ -1,0 +1,41 @@
+#define potenciometer1 A0    //(0 V - 12 V) 
+#define potenciometer2 A1    //(-5 V - 5 V)   
+#define potenciometer3 A2    //(-2 V - 10 V) 
+#define LED1 2
+#define LED2 3
+#define LED3 4
+#define LED4 5
+int stanje_LED1 = 0;
+int stanje_LED2 = 0;
+int stanje_LED3 = 0;
+int stanje_LED4 = 0;
+char Profilab;
+String Arduino_data;
+
+void setup() {
+  pinMode(LED1, OUTPUT);
+  pinMode(LED2, OUTPUT);
+  pinMode(LED3, OUTPUT);
+  pinMode(LED4, OUTPUT);
+  Serial.begin(115200);
+}
+
+void loop() {
+    if (Serial.available()){
+    Profilab=Serial.read(); 
+    if(Profilab=='A') stanje_LED1=Serial.parseInt(); 
+    if(Profilab=='B') stanje_LED2=Serial.parseInt(); 
+    if(Profilab=='C') stanje_LED3=Serial.parseInt(); 
+    if(Profilab=='D') stanje_LED4=Serial.parseInt(); 
+  }
+ Arduino_data=analogRead(potenciometer1);
+ Arduino_data += ';' ;
+ Arduino_data += analogRead(potenciometer2);
+ Arduino_data += ';';
+ Arduino_data += analogRead(potenciometer3);
+  Serial.println(Arduino_data);
+  digitalWrite(LED1,stanje_LED1);
+  digitalWrite(LED2,stanje_LED2);
+  digitalWrite(LED3,stanje_LED3);
+  digitalWrite(LED4,stanje_LED4);
+}
