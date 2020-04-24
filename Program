@@ -1,0 +1,149 @@
+/*#include <LiquidCrystal.h>
+  LiquidCrystal lcd(1,2,4,5,6,7);
+*/
+int trigPin = 10;
+int echoPin = 11;
+long durt;
+float dist;
+float scale;
+void setup() {
+  // lcd.begin(16,2);
+
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+  Serial.begin(9600);
+  pinMode(2, OUTPUT);
+  pinMode(3, OUTPUT);
+  pinMode(4, OUTPUT);
+  pinMode(5, OUTPUT);
+  pinMode(6, OUTPUT);
+  pinMode(7, OUTPUT);
+  pinMode(8, OUTPUT);
+  pinMode(9, OUTPUT);
+}
+
+void loop() {
+  scale = 3;
+  digitalWrite(trigPin, LOW);
+  delay(10);
+  digitalWrite(trigPin, HIGH);
+  delay(10);
+  digitalWrite(trigPin, LOW);
+  durt = pulseIn(echoPin, HIGH);
+  dist = durt * 0.034 / 2;
+  Serial.print("distance: ");
+  Serial.print(dist);
+  Serial.println(" cm");
+  if (dist <=  scale and dist> 0) {
+    digitalWrite(2, HIGH);
+  }
+  else {
+    digitalWrite(2, LOW);
+  }
+  if ((dist <=  (scale * 2))and dist>(scale)) {
+    digitalWrite(3, HIGH);
+  }
+  else {
+    digitalWrite(3, LOW);
+  }
+  if ((dist <=  (scale * 3))and dist>(scale*2)) {
+    digitalWrite(4, HIGH);
+  }
+  else {
+    digitalWrite(4, LOW);
+  }
+  if ((dist <=  (scale * 4))and dist>(scale*3)) {
+    digitalWrite(5, HIGH);
+  }
+  else {
+    digitalWrite(5, LOW);
+  }
+  if ((dist <=  (scale * 5))and dist>(scale*4)) {
+    digitalWrite(6, HIGH);
+  }
+  else {
+    digitalWrite(6, LOW);
+  }
+  if (dist <=  (scale * 6)and dist>(scale*5)) {
+    digitalWrite(7, HIGH);
+  }
+  else {
+    digitalWrite(7, LOW);
+  }
+  if ((dist <= (scale * 7))and dist>(scale*6)) {
+    digitalWrite(8, HIGH);
+  }
+  else {
+    digitalWrite(8, LOW);
+  }
+  if ((dist <= (scale * 8))and dist>(scale*7)) {
+    digitalWrite(9, HIGH);
+  }
+  else {
+    digitalWrite(9, LOW);
+  }
+
+  /*if ((dist % 2) > 0) {
+      digitalWrite(2, HIGH);
+    }
+    else {
+      digitalWrite(2, LOW);
+    }
+
+    if ((dist % 4) > 1) {
+      digitalWrite(3, HIGH);
+    }
+    else {
+      digitalWrite(3, LOW);
+    }
+
+    if ((dist % 8) > 3) {
+      digitalWrite(4, HIGH);
+    }
+    else {
+      digitalWrite(4, LOW);
+    }
+
+    if ((dist % 16) > 7) {
+      digitalWrite(5, HIGH);
+    }
+    else {
+      digitalWrite(5, LOW);
+    }
+
+    if ((dist % 32) > 15) {
+      digitalWrite(6, HIGH);
+    }
+    else {
+      digitalWrite(6, LOW);
+    }
+
+    if ((dist % 64) > 31) {
+      digitalWrite(7, HIGH);
+    }
+    else {
+      digitalWrite(7, LOW);
+    }
+
+    if ((dist % 128) > 63) {
+      digitalWrite(8, HIGH);
+    }
+    else {
+      digitalWrite(8, LOW);
+    }
+    if ((dist % 256) > 127) {
+      digitalWrite(9, HIGH);
+    }
+    else {
+      digitalWrite(9, LOW);
+    }*/
+  delay(500);
+  if (dist>(scale*8) ) {
+    Serial.println("!Error! Object out of range!");
+  }
+}
+
+/*lcd.setCursor(0,0);
+  lcd.print("distance: ");
+  lcd.println(dist);
+  delay(10);*/
